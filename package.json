@@ -1,0 +1,35 @@
+{
+  "name": "cmpe131proj_be",
+  "version": "1.0.0",
+  "description": "cmpe 131 project backend",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "babel-node src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christiandaga/cmpe131proj_be.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christiandaga/cmpe131proj_be/issues"
+  },
+  "homepage": "https://github.com/christiandaga/cmpe131proj_be#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/plugin-syntax-class-properties": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0"
+  }
+}

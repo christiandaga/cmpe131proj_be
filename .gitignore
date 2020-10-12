@@ -1,0 +1,29 @@
+# Environment.
+.envrc
+
+# Logs.
+logs
+*.log
+npm-debug.log*
+
+# Compiled.
+dist/
+
+# Test Coverage directory.
+coverage/
+
+# Dependency directory.
+node_modules/
+
+# IDEs.
+.idea
+*.iml
+#.vscode
+
+# System files.
+.DS_Store
+
+# Temp files.
+*.swp
+*.bak
+*.bak2
