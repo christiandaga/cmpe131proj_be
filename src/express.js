@@ -6,7 +6,7 @@ export default app;
 
 export const initExpress = async () => {
     app.get('/', (req, res) => {
-        res.send('Hello World!')
+        res.send('Testing Git')
     });
 
     app.listen(port, () => {
