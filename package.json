@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/christiandaga/cmpe131proj_be#readme",
   "dependencies": {
+    "config": "^3.3.2",
     "express": "^4.17.1",
+    "mongoose": "^5.10.9",
     "request": "^2.88.2"
   },
   "devDependencies": {
