@@ -12,3 +12,14 @@ export const login = async (req, res, next) => {
         next(err);
     }
 }
+
+export const register = async (req, res, next) => {
+    const { username, password, pin } = req.body;
+
+    try {
+        const user = await authSvc.register(username, password, pin);
+        res.status(httpStatus.OK).json(user);
+    } catch (err) {
+        next(err);
+    }
+}
