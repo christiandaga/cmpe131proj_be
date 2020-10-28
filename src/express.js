@@ -1,4 +1,6 @@
-const express = require('express');
+import bodyParser from 'body-parser';
+import express from 'express';
+import routes from './routes';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -6,8 +8,6 @@ const connectDB = require("./db/db");
 const mongoose = require("mongoose");
 const User = require("./models/User");
 //const Account = require("./models/Account");
-const bodyParser = require('body-parser');
-
 
 export default app
 
@@ -16,17 +16,11 @@ export const initExpress = async () => {
     //connect to DB test
     connectDB();
    
-    
-    app.use(express.json()); 
-    app.use(express.urlencoded());
-    app.use(express.json({
-        extended: false
-    }));
+    app.use(bodyParser.json({ limit: '100mb' }));
+    app.use(bodyParser.raw());
+    app.use(bodyParser.urlencoded({ extended: false }));
 
-
-    app.get('/', (req, res) => {
-        res.send('Testing Git on jd branch')
-    });
+    app.use('/api', routes);
 
     //initial database entry tests
     app.post('/', (req,res) => {
@@ -60,8 +54,9 @@ export const initExpress = async () => {
         }
 
     });
+  
     app.listen(PORT, () => {
-        console.log(`Example app listening on port ${PORT}!`)
+        console.log(`Bank app backend listening on port ${PORT}!`)
     });
 
 
