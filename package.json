@@ -18,7 +18,15 @@
   },
   "homepage": "https://github.com/christiandaga/cmpe131proj_be#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "celebrate": "^11.0.2",
+    "config": "^3.3.2",
+    "express": "^4.17.1",
+    "http-status": "^1.4.2",
+    "mongoose": "^5.10.9",
+    "nested-error-stacks": "^2.1.0",
+    "request": "^2.88.2",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
