@@ -19,7 +19,7 @@ export const login = async (req, res, next) => {
         
         const user = await authSvc.login(username, password);
         
-        await User.find({username: user.username, password: user.password}, function(err, foundUser){
+        await User.find({username: user.loggedUser.username, password: user.loggedUser.password}, function(err, foundUser){
             if(err){
                 console.log("error finding user: ", err);
             }else{

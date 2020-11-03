@@ -23,16 +23,10 @@ export const login = async (username, password) => {
         //pin: 1234
     });
     
-    return loggedUser;
+    //return loggedUser;
 
-    const exampleuser = {
-        id: '1',
-        username,
-        password,
-        pin: 1234
-    }
-
-    const ret = { loggedUser, token: createUserJwt(exampleuser) };
+   
+    const ret = { loggedUser, token: createUserJwt(loggedUser) };
     return ret;
 
 }
