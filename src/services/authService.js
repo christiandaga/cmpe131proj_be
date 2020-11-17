@@ -1,4 +1,4 @@
-import config from 'config';
+/*import config from 'config';
 import jwt from 'jsonwebtoken';
 import uuid from 'uuid';
 import User from '../models/User';
@@ -40,3 +40,6 @@ export const register = async (username, password, pin) => {
     });
     return newUser;
 }
+
+//if we move the json token to register than its already there before the login, can be placed in middleware. 
+*/

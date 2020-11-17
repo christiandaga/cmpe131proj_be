@@ -1,13 +1,28 @@
 import httpStatus from 'http-status';
 
 import * as accountSvc from '../services/accountService';
+import User from '../models/User';
+
 
 export const getAccounts = async (req, res, next) => {
-    const { userId } = req.query;
+    console.log("made it here!!!! congrats auth works!!!!");
+    //const { userId } = req.body.userId;
+    //console.log("user Id", userId);
 
     try {
-        const accounts = await accountSvc.getAccounts(userId);
-        res.status(httpStatus.OK).json(accounts);
+        //const accounts = await accountSvc.getAccounts(userId);
+        //const user = await User.findOne({username: req.body.username});
+        
+        /*User.findById(userId.id, function(err, foundUser){
+            if(err){
+                throw err;
+                console.log("error in getAccounts findbyID", err);
+            }else{
+                console.log("founduser name:", foundUser);
+                console.log(foundUser.getAccounts);
+            }
+        });*/
+        //res.status(httpStatus.OK).json(accounts);
     } catch (err) {
         next(err);
     }

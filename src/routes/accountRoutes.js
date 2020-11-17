@@ -4,9 +4,11 @@ import { validatorNames, validateByApiVersion } from './validators';
 
 import * as account from '../controllers/accountController';
 
+import authorization from '../middleware/authorization';
+
 const router = express.Router();
 
-router.route('/').get(validateByApiVersion(validatorNames.getAccounts), account.getAccounts);
+router.route('/').get(validateByApiVersion(validatorNames.getAccounts), authorization, account.getAccounts);
 
 router.route('/:accountId').get(validateByApiVersion(validatorNames.getAccount), account.getAccount);
 router.route('/:accountId').post(validateByApiVersion(validatorNames.createAccount), account.createAccount);

@@ -25,7 +25,6 @@ export const initExpress = async () => {
 
 
     connectDB();
-    //app.use('/api', routes);
 
 
     app.use(

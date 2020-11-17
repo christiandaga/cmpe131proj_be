@@ -2,5 +2,7 @@
     "mongoURI": "mongodb+srv://josh:josh123@atm.nwqi3.mongodb.net/test1?retryWrites=true&w=majority",
     "jwt": {
         "secret": "bankapp"
-    }
+    },
+
+    "jwtSecret": "bankapp"
 }
