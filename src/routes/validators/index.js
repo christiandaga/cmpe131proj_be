@@ -2,10 +2,12 @@ import { celebrate } from 'celebrate';
 
 import authValidator from './authValidator';
 import accountValidator from './accountValidator';
+import transactionValidator from './transactionValidator';
 
 const validatorSchemas = {
   ...authValidator,
   ...accountValidator,
+  ...transactionValidator,
 };
 
 export const validatorNames = {};
