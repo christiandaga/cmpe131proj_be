@@ -13,11 +13,11 @@ export const addTransaction = async (req, res, next) => {
   }
 }
 
-export const getTransaction = async (req, res, next) => {
+export const getTransactions = async (req, res, next) => {
   const { accountId } = req.params;
 
   try {
-      // add Transaction
+      // get Transactions
       res.status(httpStatus.OK).json(req.params);
   } catch (err) {
       next(err);

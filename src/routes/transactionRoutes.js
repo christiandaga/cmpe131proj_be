@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.route('/').post(trans.addTransaction);
 
-router.route('/:accountId').get(trans.getTransaction);
+router.route('/:accountId').get(trans.getTransactions);
 
 export default router;
