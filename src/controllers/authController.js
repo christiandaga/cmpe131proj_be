@@ -21,8 +21,6 @@ export const login = async (req, res, next) => {
             password: req.body.password
         });
 
-        //const user = await authSvc.login(username, password);
-        
         await User.findOne({username: newUser.username, password: newUser.password}, function(err, foundUser){
             if(err){
                 console.log("error finding user: ", err);
@@ -67,23 +65,6 @@ export const register = async (req, res, next) => {
                 console.log("registered user");
             }
         })
-
-        const payload = {
-            user: {
-                id: user.id,
-                username: user.username
-            }
-        }
-
-
-        jwt.sign(payload, jwtConfig,{
-            expiresIn: 360000
-        }, (err, token) => {
-            if(err) throw err;
-            console.log(token);
-        });
-
-        res.status(httpStatus.OK).json(user);
     } catch (err) {
         next(err);
     }

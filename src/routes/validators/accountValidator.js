@@ -27,10 +27,10 @@ export default {
           .required(),
       },
       body: {
-        name: Joi.string()
+        accountType: Joi.string()
         .min(1)
         .required(),
-        ownerId: Joi.string()
+        currentBalance: Joi.string()
         .min(1)
         .required(),
       }
