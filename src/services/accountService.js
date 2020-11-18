@@ -2,23 +2,20 @@ import uuid from 'uuid';
 import User from '../models/User';
 
 export const getAccounts = async (userId) => {
-    //dummy
-    const dummy = {
-      hi: "It worked"
+    //will refactor to handle accounts if we turn them into seperate models.
+  /*let accounts = [];
+
+  User.findById(userId, function(err, foundUser){
+    if(err){
+      throw err;
+      console.log("error in getAccounts");
+    }else{
+      accounts = foundUser.accounts;
     }
+  });
 
-    return dummy;
-   /*const user = await User.findById(userId, function(err, foundUser){
-     if(err){
-       console.log("error in getAccounts", err);
-     }else{
-       console.log("foundUser authenticated", foundUser);
-     }
-
-   });*/
-
-
-
+  return accounts;
+*/
 }
 
 export const getAccount = async (accountId) => {

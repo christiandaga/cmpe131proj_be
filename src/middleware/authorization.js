@@ -19,6 +19,7 @@ module.exports = async function(req,res,next){
     try{
         const decoded = jwt.verify(token, config.get("jwtSecret"));    
         req.user = decoded.user; 
+        req.params.id = req.user.id;
         next();     
     }catch(err){
         console.log("Error in the middleware verification token is not valid: " , err);

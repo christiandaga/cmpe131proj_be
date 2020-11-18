@@ -26,15 +26,15 @@ export const initExpress = async () => {
 
     connectDB();
 
-
-    app.use(
+    //fix this to not need jwtMiddleware but have a checker to make sure there is something there.
+    /*app.use(
         jwtMiddleware.unless({
             path: [
                 /^\/api\/(v\d+\/)?auth\/register/,
                 /^\/api\/(v\d+\/)?auth\/login/
             ]
         })
-    );
+    );*/
 
     app.use('/api', routes);
 
