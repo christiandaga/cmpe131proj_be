@@ -13,7 +13,7 @@ export const getAccounts = async (req, res, next) => {
     console.log("made it here!!!! congrats auth works!!!!");
     console.log("payload id: ", req.user.id); 
 
-    User.findById(req.user.id, function(err, foundUser){
+    /*User.findById(req.user.id, function(err, foundUser){
         if(err){
             throw err;
             console.log("error in getAccounts: ", err);
@@ -21,7 +21,7 @@ export const getAccounts = async (req, res, next) => {
             console.log(foundUser.accounts);
             //we will res.send the acconuts to the ejs file for format and showing. 
         }
-    })
+    })*/
 }
 
 //working on protected routes that need id.....
@@ -53,7 +53,7 @@ export const getAccount = async (req, res, next) => {
 //error handling asks for "name" and "ownerID"
 export const createAccount = async (req, res, next) => {
     console.log("inside create account");
-    const accountType = req.body.accountType;
+    /*const accountType = req.body.accountType;
     const currentBalance = req.body.currentBalance;
 
     let account = [{
@@ -68,7 +68,7 @@ export const createAccount = async (req, res, next) => {
         }else{
             console.log("updated account", foundUser.accounts);
         }
-    });
+    });*/
 }
 
 //will handle both withdrawl and deposit
