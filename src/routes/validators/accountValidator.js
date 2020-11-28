@@ -6,7 +6,6 @@ export default {
       query: {
         userId: Joi.string()
           .min(1)
-          .required(),
       }
     }
   },
@@ -30,9 +29,21 @@ export default {
         accountType: Joi.string()
         .min(1)
         .required(),
-        currentBalance: Joi.string()
+        currentBalance: Joi.number()
+        .min(1)
+        .required()
+        /*name: Joi.string()
         .min(1)
         .required(),
+        nth_account: Joi.string()
+        .min(1)
+        .required(),
+        username: Joi.string()
+        .min(1)
+        .required(),
+        unique_id: Joi.string()
+        .min(1)
+        .required()*/
       }
     }
   },

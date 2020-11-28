@@ -6,8 +6,9 @@ import jwtMiddleware from '../jwtMiddleware';
 
 module.exports = async function(req,res,next){
     // get token
-    let token = req.header('x-auth-token');
-    
+    let token = req.cookies.token;
+    //req.header(x-auth-token)
+    console.log("token from cookie", token);
     //check if token exists
 
     if(!token){
@@ -19,7 +20,7 @@ module.exports = async function(req,res,next){
     try{
         const decoded = jwt.verify(token, config.get("jwtSecret"));    
         req.user = decoded.user; 
-        req.params.id = req.user.id;
+        //req.params.id = req.user.id;
         next();     
     }catch(err){
         console.log("Error in the middleware verification token is not valid: " , err);

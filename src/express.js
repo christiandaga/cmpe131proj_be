@@ -2,11 +2,13 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import { UnauthorizedError as JwtUnauthorizedError } from 'express-jwt';
 import httpStatus from 'http-status';
-
 import { ApiError } from './errors';
 import jwtMiddleware from './jwtMiddleware';
 import routes from './routes';
 
+const cookieParser = require("cookie-parser");
+const ejs = require("ejs");
+let path = require("path");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const connectDB = require("./db/db");
@@ -22,6 +24,7 @@ export const initExpress = async () => {
     app.use(bodyParser.json({ limit: '100mb' }));
     app.use(bodyParser.raw());
     app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(cookieParser());
 
 
     connectDB();
@@ -35,6 +38,9 @@ export const initExpress = async () => {
             ]
         })
     );*/
+
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'ejs');
 
     app.use('/api', routes);
 
@@ -53,9 +59,12 @@ export const initExpress = async () => {
         }
     });
 
+    app.get("/", (req,res,next) => {
+        return res.render("login");
+    });
 
     app.listen(PORT, () => {
-        console.log(`Bank app backend listening on port ${PORT}!`)
+        console.log(`Bank app backend listening on port ${PORT}!`);
     });
 
 

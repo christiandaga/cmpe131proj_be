@@ -21,11 +21,11 @@ export const login = async (req, res, next) => {
             password: req.body.password
         });
 
-        await User.findOne({username: newUser.username, password: newUser.password}, function(err, foundUser){
+        User.findOne({username: newUser.username, password: newUser.password}, function(err, foundUser){
             if(err){
                 console.log("error finding user: ", err);
             }else{
-                console.log("logged user id from database?", foundUser._id);
+                console.log("logged user id from database?", foundUser.id);
                 //send this found id to the token!!!!!!!
 
                 const payload = {
@@ -40,13 +40,16 @@ export const login = async (req, res, next) => {
                 }, (err, token) => {
                     if(err) throw err;
                     console.log(token);
+                    res.cookie('token', token);
+                    return res.redirect("/api/account/");
+                    //res.set('x-auth-token', token); //this allows for token passing. 
                 });
                 
             }
         });
 
-
-        res.status(httpStatus.OK).json(newUser);
+        //return res.redirect("/api/account/");
+        //res.status(httpStatus.OK).json(newUser);
     }catch (err) {
         next(err);
     }
@@ -69,3 +72,4 @@ export const register = async (req, res, next) => {
         next(err);
     }
 }
+

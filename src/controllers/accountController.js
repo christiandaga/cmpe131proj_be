@@ -3,6 +3,8 @@ import httpStatus from 'http-status';
 import * as accountSvc from '../services/accountService';
 import User from '../models/User';
 import jwtMiddleware from '../jwtMiddleware';
+import UserAcccount from '../models/AccountModel';
+import AccountModel from '../models/AccountModel';
 
 //need to edit so that userId can be taken out of the params, in the error handling. accountValidator.
 
@@ -10,68 +12,83 @@ import jwtMiddleware from '../jwtMiddleware';
 //PAYLOAD carries the id over here so we dont need to have it in params but we will see how it works out. 
 
 export const getAccounts = async (req, res, next) => {
-    console.log("made it here!!!! congrats auth works!!!!");
+    //res.send(req.cookies.token);
+    console.log("insind get all accounts");
     console.log("payload id: ", req.user.id); 
 
-    /*User.findById(req.user.id, function(err, foundUser){
+    await AccountModel.find({user: req.user.id}, function(err, foundAccounts){
         if(err){
-            throw err;
-            console.log("error in getAccounts: ", err);
+            console.log("error in finding all accounts linked to a user", err);
         }else{
-            console.log(foundUser.accounts);
-            //we will res.send the acconuts to the ejs file for format and showing. 
+            console.log("possible found Accounts", foundAccounts);
+            //res.send(foundAccounts);
+            res.render("accounts.ejs", {foundAccounts: foundAccounts});
         }
-    })*/
+    });
 }
 
 //working on protected routes that need id.....
 //we can pass id in query, id is also inside of payload if we need it. 
 export const getAccount = async (req, res, next) => {
     console.log("inside getAccount");
-    //this route might be unreachable
-    const { accountId } = req.params;
+    console.log(req.user.id);
+    console.log(req.params.accountId);
 
-    User.findById(req.params.id, function(err, foundUser){
+    AccountModel.findById(req.params.accountId, function(err, foundAccount){
         if(err){
-            throw err;
-            console.log("error in getAccount", err);
+            console.log("errror in finding single account", err);
         }else{
-            //console.log(foundUser)
-            //res.render with foundUser account that was clicked on. 
+            res.render("manageAccount.ejs", {foundAccount: foundAccount});
         }
     });
 
-    /*try {
-        const account = await accountSvc.getAccount(accountId);
-        res.status(httpStatus.OK).json(account);
-    } catch (err) {
-        next(err);
-    }*/
+
+    
+
+    
+
 }
 
 //adds an account to the db, this is an intial test. 
 //error handling asks for "name" and "ownerID"
 export const createAccount = async (req, res, next) => {
     console.log("inside create account");
-    /*const accountType = req.body.accountType;
-    const currentBalance = req.body.currentBalance;
+    console.log("userId", req.user.id);
+    //here we will create a checking or savings account. that is associated with a user. 
 
-    let account = [{
-        accountType: accountType,
-        currentBalance: currentBalance
-    }];
+    //inclulde a checker here later. 
+    const {
+        accountType,
+        //name,
+        //nth_account,
+        //username,
+        //unique_id,
+        currentBalance
+    } = req.body;
 
-    User.findByIdAndUpdate(req.params.id, {$push: {accounts: account}}, function(err, foundUser){
-        if(err){
-            throw err;
-            console.log("error in createAccount");
-        }else{
-            console.log("updated account", foundUser.accounts);
-        }
-    });*/
+    const accountFields = {};
+    accountFields.user = req.user.id;
+
+    if(accountType) accountFields.accountType = accountType;
+    //if(name) accountFields.name = name;
+    //if(username) accountFields.username = username;
+    //if(nth_account) accountFields.nth_account = nth_account;
+    //if(unique_id) accountFields.unique_id = unique_id;
+    if(currentBalance) accountFields.currentBalance = currentBalance;
+
+    console.log("accountFields", accountFields);
+    
+
+    let account = new UserAcccount(accountFields);
+
+    await account.save();
+
+    console.log("added account", account);
+    
+    
 }
 
-//will handle both withdrawl and deposit
+//will handle both withdrawl and deposit might need 2 routes. 
 //update this later. 
 export const updateAccount = async (req, res, next) => {
   
@@ -100,4 +117,82 @@ export const deleteAccount = async (req, res, next) => {
     //delete an account based on id
     
 }
+
+export const makeDeposit = async(req, res, next) => {
+    //res.send("inside make deposit");
+    //foundAccounts.user%>/deposit?_method=PUT
+    const id = req.params.accountId;
+    let oldBalance;
+    const deposit = parseInt(req.body.depositedAmount);
+
+    await AccountModel.findById(id, function(err, foundAccount){
+        if(err){
+            console.log(err);
+        }else{
+            console.log("old balance", foundAccount.currentBalance);
+            oldBalance = foundAccount.currentBalance;
+        }
+    });
+
+    console.log("deposit", deposit);
+    const newBalance = oldBalance + deposit;
+    console.log("newBalance 1", newBalance);
+
+    await AccountModel.findByIdAndUpdate(id, {currentBalance: oldBalance + deposit}, function(err, updatedAccount){
+        if(err){
+            console.log("err in addition", err);
+        }else{
+            console.log("new Balance", updatedAccount.currentBalance);
+        }
+    });
+
+    
+
+}
+
+
+export const makeWithdrawl = async(req, res, next) => {
+    res.send("inside make Withdrawl");
+    //foundAccounts.user%>/deposit?_method=PUT
+    
+    const id = req.params.accountId;
+    let oldBalance;
+    const withdrawl = parseInt(req.body.withdrawnAmount);
+
+    await AccountModel.findById(id, function(err, foundAccount){
+        if(err){
+            console.log(err);
+        }else{
+            console.log("old balance", foundAccount.currentBalance);
+            oldBalance = foundAccount.currentBalance;
+        }
+    });
+
+    //console.log("deposit", deposit);
+    const newBalance = oldBalance - withdrawl;
+    console.log("newBalance 1", newBalance);
+
+    await AccountModel.findByIdAndUpdate(id, {currentBalance: newBalance}, function(err, updatedAccount){
+        if(err){
+            console.log("err in subtraction", err);
+        }else{
+            console.log("new Balance", updatedAccount.currentBalance);
+        }
+    });
+
+
+
+}
+
+export const makeTrasnfer = async(req,res,next) => {
+
+    //redo this. 
+
+
+
+
+} 
+
+
+//add a trasnfer route function
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%=foundAccount.accountType%> - <%=foundAccount.currentBalance%> </h1>
+    <form action="<%= foundAccount.id%>/Deposit"  method="POST">
+        <input type="number" name="depositedAmount">
+    <button type="submit">Deposit</button>        
+    </form>
+    <form action="<%= foundAccount.id%>/Withdrawl" method="POST">
+        <input type="number" name="withdrawnAmount">
+    <button type="submit">Withdrawl</button>        
+    </form>
+    <form action="<%= foundAccount.id%>/Trasnfer" method="POST">
+        <h1>Select an Account to transfer too</h1>
+        <select name="listedAccounts" id="listedAccounts">
+        <% foundAccount.forEach(function(foundAccount){ %>
+            <option value="<%= foundAccount.accountType%>"> <%= foundAccount.accountType%> </option>
+            <% }) %>
+        </select>
+        <input type="number" name="transferAmount">
+    <button type="submit">Transfer</button>        
+    </form>
+</body>
+</html>

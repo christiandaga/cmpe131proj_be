@@ -6,6 +6,7 @@ import transactionRoutes from './transactionRoutes';
 
 const router = express.Router();
 
+
 router.use('/auth', authRoutes);
 router.use('/account', accountRoutes);
 router.use('/transaction', transactionRoutes);

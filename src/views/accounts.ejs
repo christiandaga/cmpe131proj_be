@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <% foundAccounts.forEach(function(foundAccounts){ %>
+    <form action="<%= foundAccounts.id%>" method="GET">
+    <li> <%= foundAccounts.accountType %> - <%= foundAccounts.currentBalance%></li>
+    <button type="submit">Submit</button>
+    </form> 
+    <% }) %>
+</html>
